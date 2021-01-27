@@ -1,6 +1,9 @@
 from collections import OrderedDict
 import pandas as pd
-from tests import project_test, assert_output, generate_random_tickers
+
+import sys
+sys.path.append("../../../")
+from utests import project_test, assert_output, generate_random_tickers
 
 
 @project_test
@@ -180,5 +183,5 @@ def test_days_to_weeks(fn):
                     [18, 30, 13],
                     [31, 32, 14]],
                 resampled_dates, tickers))])
-
+   
     assert_output(fn, fn_inputs, fn_correct_outputs)

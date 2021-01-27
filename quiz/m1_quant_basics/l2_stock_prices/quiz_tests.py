@@ -1,6 +1,9 @@
 from collections import OrderedDict
 import pandas as pd
-from tests import project_test, assert_output
+
+import sys
+sys.path.append("../../../")
+from utests import project_test, assert_output
 
 
 @project_test
