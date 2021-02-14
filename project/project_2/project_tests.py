@@ -2,7 +2,9 @@ from collections import OrderedDict
 import numpy as np
 import pandas as pd
 
-from tests import generate_random_tickers, generate_random_dates, assert_output, project_test
+import sys
+sys.path.append("../../")
+from utests import generate_random_tickers, generate_random_dates, assert_output, project_test
 
 
 @project_test

@@ -1,5 +1,8 @@
 from collections import OrderedDict
-from tests import project_test, generate_random_tickers, generate_random_dates, assert_output
+
+import sys
+sys.path.append("../../../")
+from utests import project_test, generate_random_tickers, generate_random_dates, assert_output
 
 import numpy as np
 import pandas as pd
