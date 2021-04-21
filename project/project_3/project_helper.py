@@ -1,4 +1,4 @@
-import helper
+# import helper
 import numpy as np
 from IPython.core.display import display, HTML
 import plotly.graph_objs as go
@@ -35,7 +35,7 @@ def _generate_heatmap_trace(df, x_label, y_label, z_label, scale_min, scale_max)
         zauto=False,
         zmax=scale_max,
         zmin=scale_min,
-        colorscale=helper.color_scheme['heatmap_colorscale'],
+#         colorscale=helper.color_scheme['heatmap_colorscale'],
         text=hover_text,
         hoverinfo='text')
 
@@ -70,17 +70,17 @@ def large_dollar_volume_stocks(df, price_column, volume_column, top_percent):
 
 
 def plot_benchmark_returns(benchmark_data, etf_data, title):
-    config = helper.generate_config()
     index_trace = go.Scatter(
         name='Index',
         x=benchmark_data.index,
         y=benchmark_data,
-        line={'color': helper.color_scheme['index']})
+    )
     etf_trace = go.Scatter(
         name='ETF',
         x=etf_data.index,
         y=etf_data,
-        line={'color': helper.color_scheme['etf']})
+
+    )
 
     layout = go.Layout(
         title=title,
@@ -88,12 +88,12 @@ def plot_benchmark_returns(benchmark_data, etf_data, title):
         yaxis={'title': 'Cumulative Returns', 'range': [0, 3]})
 
     fig = go.Figure(data=[index_trace, etf_trace], layout=layout)
-    offline_py.iplot(fig, config=config)
+    offline_py.iplot(fig, )
 
 
 def print_dataframe(df, n_rows=10, n_columns=3):
     missing_val_str = '...'
-    config = helper.generate_config()
+    
 
     formatted_df = df.iloc[:n_rows, :n_columns]
     formatted_df = formatted_df.applymap('{:.3f}'.format)
@@ -108,20 +108,18 @@ def print_dataframe(df, n_rows=10, n_columns=3):
         columnwidth=[1, 3],
         header={
             'values': [''] + list(formatted_df.columns.values),
-            'line': {'color': helper.color_scheme['df_line']},
-            'fill': {'color': helper.color_scheme['df_header']},
+            
             'font': {'size': 13}},
         cells={
             'values': formatted_df.reset_index().values.T,
-            'line': {'color': helper.color_scheme['df_line']},
-            'fill': {'color': [helper.color_scheme['df_header'], helper.color_scheme['df_value']]},
+            
             'font': {'size': 13}})
 
-    offline_py.iplot([trace], config=config)
+    offline_py.iplot([trace], )
 
 
 def plot_weights(weights, title):
-    config = helper.generate_config()
+    
     graph_path = 'graphs/{}.html'.format(_sanatize_string(title))
     trace = _generate_heatmap_trace(weights.sort_index(axis=1, ascending=False), 'Date', 'Ticker', 'Weight', 0.0, 0.2)
     layout = go.Layout(
@@ -130,13 +128,13 @@ def plot_weights(weights, title):
         yaxis={'title': 'Tickers'})
 
     fig = go.Figure(data=[trace], layout=layout)
-    offline_py.plot(fig, config=config, filename=graph_path, auto_open=False)
+    offline_py.plot(fig, filename=graph_path, auto_open=False)
     display(HTML('The graph for {} is too large. You can view it <a href="{}" target="_blank">here</a>.'
                  .format(title, graph_path)))
 
 
 def plot_returns(returns, title):
-    config = helper.generate_config()
+    
     graph_path = 'graphs/{}.html'.format(_sanatize_string(title))
     trace = _generate_heatmap_trace(returns.sort_index(axis=1, ascending=False), 'Date', 'Ticker', 'Weight', -0.3, 0.3)
     layout = go.Layout(
@@ -145,13 +143,13 @@ def plot_returns(returns, title):
         yaxis={'title': 'Tickers'})
 
     fig = go.Figure(data=[trace], layout=layout)
-    offline_py.plot(fig, config=config, filename=graph_path, auto_open=False)
+    offline_py.plot(fig, filename=graph_path, auto_open=False)
     display(HTML('The graph for {} is too large. You can view it <a href="{}" target="_blank">here</a>.'
                  .format(title, graph_path)))
 
 
 def plot_covariance_returns_correlation(correlation, title):
-    config = helper.generate_config()
+    
     graph_path = 'graphs/{}.html'.format(_sanatize_string(title))
     data = []
 
@@ -206,12 +204,12 @@ def plot_covariance_returns_correlation(correlation, title):
     figure['layout']['yaxis'].update({'domain': [0, .85]})
     figure['layout']['yaxis'].update(xaxis1_layout)
 
-    figure['layout']['xaxis2'].update({'domain': [0, .15]})
-    figure['layout']['xaxis2'].update(xaxis2_layout)
-    figure['layout']['yaxis2'].update({'domain': [.825, .975]})
-    figure['layout']['yaxis2'].update(xaxis2_layout)
+#     figure['layout']['xaxis2'].update({'domain': [0, .15]})
+#     figure['layout']['xaxis2'].update(xaxis2_layout)
+#     figure['layout']['yaxis2'].update({'domain': [.825, .975]})
+#     figure['layout']['yaxis2'].update(xaxis2_layout)
 
-    offline_py.plot(figure, config=config, filename=graph_path, auto_open=False)
+    offline_py.plot(figure, filename=graph_path, auto_open=False)
     display(HTML('The graph for {} is too large. You can view it <a href="{}" target="_blank">here</a>.'
                  .format(title, graph_path)))
 

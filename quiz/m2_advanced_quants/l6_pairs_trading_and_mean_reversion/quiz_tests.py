@@ -1,7 +1,9 @@
 from collections import OrderedDict
 from sklearn.linear_model import LinearRegression
 from statsmodels.tsa.stattools import adfuller
-from tests import project_test, assert_output
+import sys
+sys.path.append("../../../")
+from utests import project_test, assert_output
 
 import numpy as np
 import pandas as pd
